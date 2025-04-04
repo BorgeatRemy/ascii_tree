@@ -100,7 +100,7 @@ impl VerticalArgs {
 
 // Function to build the hierarchy string from a BTreeMap
 fn btreemap_to_string(
-  hierarchy: &BTreeMap<&String, Vec<&String>>, // Hierarchy data
+  hierarchy: &BTreeMap<String, Vec<String>>, // Hierarchy data
   current: &String,                        // Current node
   level: usize,                         // Current level in the tree
   visited: &mut HashSet<String>,         // To avoid visiting the same node twice
@@ -129,7 +129,7 @@ fn btreemap_to_string(
 }
 
 // Public function to print the hierarchy as a string
-pub fn btreemap_to_node(hierarchy: &BTreeMap<&String, Vec<&String>>, root: &String) -> Vec<TreeNode> {
+pub fn btreemap_to_node(hierarchy: &BTreeMap<String, Vec<String>>, root: &String) -> Vec<TreeNode> {
   let mut output = String::new();
   let mut visited = HashSet::new();
   btreemap_to_string(hierarchy, root, 1, &mut visited, &mut output);
