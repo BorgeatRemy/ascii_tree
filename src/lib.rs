@@ -4,6 +4,8 @@ extern crate clap;
 extern crate itertools;
 
 use clap::{Parser, Subcommand};
+use std::collections::{BTreeMap, HashSet};
+use tree::tree_node::TreeNode;
 
 pub mod test_utils;
 pub mod tree;
@@ -94,6 +96,45 @@ impl VerticalArgs {
             println!("{}", result);
         }
     }
+}
+
+// Function to build the hierarchy string from a BTreeMap
+fn btreemap_to_string(
+  hierarchy: &BTreeMap<&str, Vec<&str>>, // Hierarchy data
+  current: &str,                        // Current node
+  level: usize,                         // Current level in the tree
+  visited: &mut HashSet<String>,         // To avoid visiting the same node twice
+  output: &mut String,                   // Output string to accumulate results
+) {
+  // If the current node has already been visited, return early
+  if !visited.insert(current.to_string()) {
+      return;
+  }
+
+  // Add the current node to the output string with the appropriate number of '#' characters
+  output.push_str(&format!("{} {}\n", "#".repeat(level), current));
+
+  // If there are child nodes for the current node
+  if let Some(children) = hierarchy.get(current) {
+      for child in children {
+          // If the child has its own children, recursively call the function
+          if hierarchy.contains_key(child) {
+              btreemap_to_string(hierarchy, child, level + 1, visited, output);
+          } else {
+              // Otherwise, just add the child to the output with an additional level
+              output.push_str(&format!("{} {}\n", "#".repeat(level + 1), child));
+          }
+      }
+  }
+}
+
+// Public function to print the hierarchy as a string
+pub fn btreemap_to_node(hierarchy: &BTreeMap<&str, Vec<&str>>, root: &str) -> Vec<TreeNode> {
+  let mut output = String::new();
+  let mut visited = HashSet::new();
+  btreemap_to_string(hierarchy, root, 1, &mut visited, &mut output);
+
+  parser::parse(&output, None)
 }
 
 /// The main library entry point.  
