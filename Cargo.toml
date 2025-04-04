@@ -1,20 +1,15 @@
 [package]
 name = "astree"
-version = "0.2.9"
-license = "MIT OR Apache-2.0"
+version = "0.3.0"
 description = " A command line tool for drawing tree structures with ascii characters"
 readme = "README.md"
-homepage = "https://github.com/yzhong52/ascii_tree"
-repository = "https://github.com/yzhong52/ascii_tree"
+homepage = "https://github.com/BorgeatRemy/ascii_tree"
+repository = "https://github.com/BorgeatRemy/ascii_tree"
 keywords = ["cli", "ascii", "tree"]
-categories = ["command-line-utilities"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-clap = { version = "4.0.18", features = ["derive"] }
-itertools = "0.10.3"
+clap = {version = "4.5.35", features = ["derive"]}
+itertools = "0.14.0"
 num = "0.4.0"
-
-[dev-dependencies]
-rstest = "0.15.0"

@@ -4,6 +4,7 @@ use crate::tree::tree_node::TreeNode;
 use itertools::Itertools;
 use std::fs;
 
+
 pub fn parse(filename_or_content: &String, width: Option<usize>) -> Vec<TreeNode> {
     let content: String = match fs::read_to_string(filename_or_content.clone()) {
         Ok(file_content) => file_content,
